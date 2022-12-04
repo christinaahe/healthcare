@@ -1,15 +1,14 @@
 from flask import Blueprint, request, jsonify, make_response, current_app
 from flaskext.mysql import MySQL
 import json
-import sys
-sys.path.insert(1, '/healthcare/flask-app/src')
-#import db
 
-db = MySQL()
-physicians = Blueprint('physicians', __name__)
+from src import db
+
+
+physicians_blueprint = Blueprint('physicians_blueprint', __name__)
 
 # Get all the patients from the database
-@physicians.route('/patients', methods=['GET'])
+@physicians_blueprint.route('/patients', methods=['GET'])
 def get_patients():
     # get a cursor object from the database
     cursor = db.get_db().cursor()
@@ -35,7 +34,7 @@ def get_patients():
     return jsonify(json_data)
 
 # get the top 5 products from the database
-@physicians.route('/physician', methods=['GET'])
+@physicians_blueprint.route('/physician', methods=['GET'])
 def get_physician():
     cursor = db.get_db().cursor()
     cursor.execute('select * from physician')
@@ -56,7 +55,7 @@ def get_physician():
 
     return jsonify(json_data)
 
-@physicians.route('/appointment', methods=['GET'])
+@physicians_blueprint.route('/appointment', methods=['GET'])
 def get_appointments():
     cursor = db.get_db().cursor()
     cursor.execute('select * from appointment')
@@ -77,7 +76,7 @@ def get_appointments():
 
     return jsonify(json_data)
 
-@physicians.route('/editavailability', methods=['POST'])
+@physicians_blueprint.route('/editavailability', methods=['POST'])
 def add_availability():
     current_app.logger.info(request.form)
     cursor = db.get_db().cursor()

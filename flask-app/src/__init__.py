@@ -31,12 +31,12 @@ def create_app():
     import sys
     sys.path.insert(1, '/healthcare/flask-app/src')
     from views import views
-    from physicians.physicians import physicians
+    from physicians.physicians import physicians_blueprint
     #from src.products.products  import products
 
     # Register the routes that we just imported so they can be properly handled
     app.register_blueprint(views,       url_prefix='/classic')
-    app.register_blueprint(physicians,   url_prefix='/classic')
+    app.register_blueprint(physicians_blueprint,   url_prefix='/classic')
     #app.register_blueprint(products,    url_prefix='/classic')
 
     return app

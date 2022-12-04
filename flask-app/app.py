@@ -12,7 +12,7 @@ from src import create_app
 app = Flask(__name__)
 
 # import the blueprint objects from their respective locations
-from src.physicians import physicians
+from src.physicians.physicians import physicians_blueprint
 #from manager_api.managers import managers_blueprint
 
 # add db config variables to the app object
@@ -28,7 +28,7 @@ db_connection = MySQL()
 db_connection.init_app(app)
 
 # register the blueprints we created with the current Flask app object.
-app.register_blueprint(physicians, url_prefix='/phys')
+app.register_blueprint(physicians_blueprint, url_prefix='/phys')
 #app.register_blueprint(managers_blueprint, url_prefix='/mgr')
 
 
