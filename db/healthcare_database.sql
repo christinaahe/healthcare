@@ -1,7 +1,6 @@
 
 CREATE DATABASE healthcare;
 
-CREATE USER 'webapp'@'%' IDENTIFIED BY 'abc123';
 GRANT ALL PRIVILEGES ON healthcare.* TO 'webapp'@'%';
 
 FLUSH PRIVILEGES;
@@ -74,7 +73,7 @@ insert into patient (patientID, firstName, lastName, birthDate, sex, street, cit
 insert into patient (patientID, firstName, lastName, birthDate, sex, street, city, state, zip) values ('633681', 'Saunder', 'Bilverstone', '7/17/1984', 'M', '13 Mockingbird Crossing', 'Greensboro', 'NC', '27455');
 insert into patient (patientID, firstName, lastName, birthDate, sex, street, city, state, zip) values ('188982', 'Lucretia', 'Crusham', '9/15/1992', 'F', '1 Spohn Crossing', 'Los Angeles', 'CA', '90094');
 
-drop table record;
+
 CREATE TABLE record (
     patientID INT NOT NULL,
     recordID INT PRIMARY KEY,
