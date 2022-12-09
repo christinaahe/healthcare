@@ -1,4 +1,4 @@
-# Some set up for the application 
+# Some set up for the application
 
 from flask import Flask
 from flaskext.mysql import MySQL
@@ -7,10 +7,9 @@ from flaskext.mysql import MySQL
 db = MySQL()
 
 
-
 def create_app():
     app = Flask(__name__)
-
+    #app.logger.info("test")
     # secret key that will be used for securely signing the session
     # cookie and can be used for any other security related needs by
     # extensions or your application
@@ -18,7 +17,8 @@ def create_app():
 
     # these are for the DB object to be able to connect to MySQL.
     app.config['MYSQL_DATABASE_USER'] = 'webapp'
-    #app.config['MYSQL_DATABASE_PASSWORD'] = open('/secrets/db_password.txt').readline()
+
+    # this doesn't work
     app.config['MYSQL_DATABASE_PASSWORD'] = 'abc123'
     app.config['MYSQL_DATABASE_HOST'] = 'db'
     app.config['MYSQL_DATABASE_PORT'] = 3306
@@ -30,11 +30,16 @@ def create_app():
     # Import the various routes
     from src.views import views
     from src.physicians.physicians import physicians
-    #from src.products.products import products
+    from src.patients.patients import patients
+    from src.administrator.administrator import administrator
 
     # Register the routes that we just imported so they can be properly handled
-    app.register_blueprint(views, url_prefix='/classic')
+    # app.register_blueprint(views, url_prefix='/classic')
     app.register_blueprint(physicians, url_prefix='/phys')
-    #app.register_blueprint(products, url_prefix='/classic')
+    app.register_blueprint(patients, url_prefix='/pat')
+    app.register_blueprint(administrator, url_prefix='/admin')
+
+    #app.logger.info("hello")
+    #app.logger.info(app.url_map)
 
     return app

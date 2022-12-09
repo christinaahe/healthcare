@@ -1,16 +1,14 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response, current_app
 import json
 from src import db
 
-
-customers = Blueprint('customers', __name__)
+administrator = Blueprint('administrator', __name__)
 
 # Get all customers from the DB
-@customers.route('/customers', methods=['GET'])
+@administrator.route('/insurance', methods=['GET'])
 def get_customers():
     cursor = db.get_db().cursor()
-    cursor.execute('select customerNumber, customerName,\
-        creditLimit from customers')
+    cursor.execute('select * from insurance')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -21,11 +19,11 @@ def get_customers():
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get customer detail for customer with particular userID
-@customers.route('/customers/<userID>', methods=['GET'])
-def get_customer(userID):
+# Get all customers from the DB
+@administrator.route('/claim/<insuranceID>', methods=['GET'])
+def get_claim(insuranceID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from customers where customerNumber = {0}'.format(userID))
+    cursor.execute('select * from claim where insuranceID = {0}'.format(insuranceID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -35,3 +33,24 @@ def get_customer(userID):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
+
+# Adding a new patient
+@administrator.route('/patient', methods=['POST'])
+def add_patient():
+    current_app.logger.info(request.form)
+    cursor = db.get_db().cursor()
+    patientID = request.form['patientID']
+    firstName = request.form['firstName']
+    lastName = request.form['lastName']
+    birthDate = request.form['birthDate']
+    sex = request.form['sex']
+    street = request.form['street']
+    city = request.form['city']
+    state = request.form['state']
+    zip = request.form['zip']
+    query = f'INSERT INTO patient (patientID, firstName, lastName, birthDate, sex, street, city, state, zip) VALUES(\"{patientID}\",\"{firstName}\",\"{lastName}\",\"{birthDate}\",\"{sex}\",\"{street}\",\"{city}\",\"{state}\",\"{zip}\")'
+    cursor.execute(query)
+    db.get_db().commit()
+    return "Successfully added new patient!"
+
