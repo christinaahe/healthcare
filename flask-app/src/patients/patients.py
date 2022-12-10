@@ -119,7 +119,7 @@ def get_tests(patientID):
     return the_response
 
 @patients.route('/appointment/<patientID>', methods=['GET'])
-def get_appointments(patientID):
+def get_appointments_patient(patientID):
     cursor = db.get_db().cursor()
     cursor.execute('select * from appointment where patientID = {0}'.format(patientID))
     column_headers = [x[0] for x in cursor.description]
@@ -160,6 +160,18 @@ def get_patientID():
 def get_availabilities():
     cursor = db.get_db().cursor()
     cursor.execute('select * from availability')
+    column_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(column_headers, row)))
+
+    return jsonify(json_data)
+
+@patients.route('/appointment', methods=['GET'])
+def get_appointments():
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from appointment')
     column_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
