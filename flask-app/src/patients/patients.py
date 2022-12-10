@@ -168,16 +168,17 @@ def get_availabilities():
 
     return jsonify(json_data)
 
-
-@patients.route('/addappointment', methods=['POST'])
-def add_availability():
+@patients.route('/editappointment', methods=['POST'])
+def add_appointment():
     current_app.logger.info(request.form)
     cursor = db.get_db().cursor()
     patientID = request.form['patientID']
-    availableDate = request.form['availableDate']
-    location = request.form['location']
-    availabilityID = request.form['availabilityID']
-    query = f'INSERT INTO availability(patientID, availableDate, location, availabilityID) VALUES(\"{patientID}\",\"{availableDate}\",\"{location}\",\"{availabilityID}\")'
+    physicianID = request.form['physicianID']
+    appointmentDate = request.form['appointmentDate']
+    roomlocation = request.form['roomlocation']
+    appointmentType = request.form['appointmentType']
+    appointmentID = request.form['appointmentID']
+    query = f'INSERT INTO appointment(patientID, physicianID, appointmentDate, appointmentID, appointmentType, roomlocation) VALUES(\"{patientID}\", \"{physicianID}\", \"{appointmentDate}\", \"{appointmentID}\", \"{appointmentType}\", \"{roomlocation}\")'
     cursor.execute(query)
     db.get_db().commit()
     return "Successfully added appointment!"
