@@ -156,6 +156,19 @@ def get_patientID():
     return jsonify(json_data)
 
 
+@patients.route('/availability', methods=['GET'])
+def get_availabilities():
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from availability')
+    column_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(column_headers, row)))
+
+    return jsonify(json_data)
+
+
 @patients.route('/addappointment', methods=['POST'])
 def add_availability():
     current_app.logger.info(request.form)
