@@ -76,3 +76,18 @@ def get_customer(physicianID):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
+# gets 
+@physicians.route('/physicianID', methods=['GET'])
+def get_physicianID():
+    cursor = db.get_db().cursor()
+    query = 'select physicianID as value, physicianID as label from physician'
+    cursor.execute(query)
+    column_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(column_headers, row)))
+
+    return jsonify(json_data)
+
