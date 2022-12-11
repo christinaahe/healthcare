@@ -62,7 +62,7 @@ def add_availability():
     return "Successfully added availability!"
 
 
-@physicians.route('/availabilitites', methods=['GET'])
+@physicians.route('/availabilities', methods=['GET'])
 def get_availabilities():
     cursor = db.get_db().cursor()
     cursor.execute('select * from availability')
@@ -75,6 +75,7 @@ def get_availabilities():
     return jsonify(json_data)
 
 # Get customer detail for customer with particular userID
+
 @physicians.route('/<physicianID>', methods=['GET'])
 def get_customer(physicianID):
     cursor = db.get_db().cursor()
@@ -84,10 +85,12 @@ def get_customer(physicianID):
     theData = cursor.fetchall()
     for row in theData:
         json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
+        the_response = make_response(jsonify(json_data))
+        the_response.status_code = 200
+        the_response.mimetype = 'application/json'
     return the_response
+    
+
 
 # gets 
 @physicians.route('/physicianID', methods=['GET'])
