@@ -168,17 +168,6 @@ def get_availabilities():
 
     return jsonify(json_data)
 
-@patients.route('/appointment', methods=['GET'])
-def get_appointments():
-    cursor = db.get_db().cursor()
-    cursor.execute('select * from appointment')
-    column_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(column_headers, row)))
-
-    return jsonify(json_data)
 
 @patients.route('/editappointment', methods=['POST'])
 def add_appointment():
