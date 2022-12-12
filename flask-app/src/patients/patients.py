@@ -142,19 +142,6 @@ def get_availabilities_physician(physicianID):
 
     return jsonify(json_data)
 
-# gets a list of patientIDS
-@patients.route('/patientID', methods=['GET'])
-def get_patientID():
-    cursor = db.get_db().cursor()
-    cursor.execute('select patientID from patient')
-    column_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(column_headers, row)))
-
-    return jsonify(json_data)
-
 
 @patients.route('/availability', methods=['GET'])
 def get_availabilities():
