@@ -23,6 +23,8 @@ The below two sections of the READMe were taken from the READMe's of Professor M
 1. Run ngrok with the local host localhost:8001
 1. Copy and paste the ngrok link in the datasource on AppSmith.
 
+It may be the case that you need a couple of different ngrok links from different users, as the free version of ngrok has a limit on how many requests can be possible. We currently have four datasources in use, so using four different ngrok links would be ideal. You could also use the same ngrok link for multiple datasources if that comes to be possible, depending on your ngrok plan.
+
 ## The AppSmith app itself
 1. Our appsmith app features four pages that allow patients, administrators, and physicians to carry out a variety of functions such as adding appointments, seeing test and patient records, and viewing insurance information. More information on how the app is run can be seen in this video here: _____.
 
