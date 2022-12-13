@@ -1,5 +1,7 @@
 # Healthcare Database Management System
 
+Our team made a healthcare database management system that facilitates the use of a hospital database for patients, administrators, and physicians. The app features a cohesive way for patients to view their medical records, for physicians to manage their availability and appointments, and for administrators to oversee patient and insurance information, to give a few examples. The majority of the project was written in Python and the code was taken from Professor Mark Fontenot's boilerplate code, and the app itself was deployed using AppSmith.
+
 The below two sections of the READMe were taken from the READMe's of Professor Mark Fontenot's boilerplate code provided to us for this application.
 
 ## How to setup and start the containers
