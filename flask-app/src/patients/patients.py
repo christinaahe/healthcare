@@ -118,6 +118,8 @@ def get_tests(patientID):
         the_response.mimetype = 'application/json'
     return the_response
 
+
+# gets current appointments for the specific patient ID
 @patients.route('/appointment/<patientID>', methods=['GET'])
 def get_appointments_patient(patientID):
     cursor = db.get_db().cursor()
@@ -130,19 +132,8 @@ def get_appointments_patient(patientID):
 
     return jsonify(json_data)
 
-@patients.route('/availability/<physicianID>', methods=['GET'])
-def get_availabilities_physician(physicianID):
-    cursor = db.get_db().cursor()
-    cursor.execute('select * from availability where physicianID = {0}'.format(physicianID))
-    column_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(column_headers, row)))
 
-    return jsonify(json_data)
-
-
+# gets all current availabilities
 @patients.route('/availability', methods=['GET'])
 def get_availabilities():
     cursor = db.get_db().cursor()
@@ -156,6 +147,7 @@ def get_availabilities():
     return jsonify(json_data)
 
 
+# posts new appointment
 @patients.route('/editappointment', methods=['POST'])
 def add_appointment():
     current_app.logger.info(request.form)

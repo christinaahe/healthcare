@@ -4,9 +4,9 @@ from src import db
 
 administrator = Blueprint('administrator', __name__)
 
-# Get all customers from the DB
+# Get all insurance info from the DB
 @administrator.route('/insurance', methods=['GET'])
-def get_customers():
+def get_insurance():
     cursor = db.get_db().cursor()
     cursor.execute('select * from insurance')
     row_headers = [x[0] for x in cursor.description]
@@ -19,22 +19,7 @@ def get_customers():
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get all customers from the DB
-@administrator.route('/claim/<insuranceID>', methods=['GET'])
-def get_claim(insuranceID):
-    cursor = db.get_db().cursor()
-    cursor.execute('select * from claim where insuranceID = {0}'.format(insuranceID))
-    row_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
-
-
+# Get all claim info from the DB
 @administrator.route('/claim', methods=['GET'])
 def get_all_claims():
     cursor = db.get_db().cursor()

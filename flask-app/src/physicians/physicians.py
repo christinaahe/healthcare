@@ -6,7 +6,7 @@ from src import db
 
 physicians = Blueprint('physicians', __name__)
 
-
+# posts new availability
 @physicians.route('/editavailability', methods=['POST'])
 def add_availability():
     current_app.logger.info(request.form)
@@ -21,6 +21,7 @@ def add_availability():
     return "Successfully added availability!"
 
 
+# gets all current availabilities
 @physicians.route('/availabilities', methods=['GET'])
 def get_availabilities():
     cursor = db.get_db().cursor()
@@ -34,7 +35,7 @@ def get_availabilities():
     return jsonify(json_data)
 
 
-# gets 
+# gets all physician IDs
 @physicians.route('/physicianID', methods=['GET'])
 def get_physicianID():
     cursor = db.get_db().cursor()
