@@ -35,26 +35,6 @@ def get_claim(insuranceID):
     return the_response
 
 
-# Adding a new patient
-@administrator.route('/patient', methods=['POST'])
-def add_patient():
-    current_app.logger.info(request.form)
-    cursor = db.get_db().cursor()
-    patientID = request.form['patientID']
-    firstName = request.form['firstName']
-    lastName = request.form['lastName']
-    birthDate = request.form['birthDate']
-    sex = request.form['sex']
-    street = request.form['street']
-    city = request.form['city']
-    state = request.form['state']
-    zip = request.form['zip']
-    query = f'INSERT INTO patient (patientID, firstName, lastName, birthDate, sex, street, city, state, zip) VALUES(\"{patientID}\",\"{firstName}\",\"{lastName}\",\"{birthDate}\",\"{sex}\",\"{street}\",\"{city}\",\"{state}\",\"{zip}\")'
-    cursor.execute(query)
-    db.get_db().commit()
-    return "Successfully added new patient!"
-
-
 @administrator.route('/claim', methods=['GET'])
 def get_all_claims():
     cursor = db.get_db().cursor()
